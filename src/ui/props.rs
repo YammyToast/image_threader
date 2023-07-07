@@ -1,16 +1,12 @@
+use dioxus::prelude::*;
+
 #[derive(Debug)]
-pub enum WindowState {
+pub enum WindowTypes {
     MainMenu,
     ConvertUpload,
     ViewUpload,
     ConfigureConvert,
     Loading,
     ConvertRender
-
-}
-
-pub struct MenuProps {
-    state: WindowState,
-    stateAccess: fn(WindowState)
 
 }

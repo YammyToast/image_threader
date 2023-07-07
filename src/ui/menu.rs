@@ -1,6 +1,9 @@
 use dioxus::prelude::*;
 
-pub fn Menu(cx: Scope) -> Element {
+use super::props;
+
+#[inline_props]
+pub fn Menu<'a>(cx: Scope<'a>, on_state_change: EventHandler<'a, props::WindowTypes>) -> Element<'a> {
     cx.render(rsx!(
         div { class: "menu-row-grid",
         div { class: "menu-grid-item menu-header",
@@ -11,7 +14,9 @@ pub fn Menu(cx: Scope) -> Element {
         },
         div { class: "menu-grid-item menu-content",
             
-            button { class: "menu-content-button",
+            button { class: "menu-content-button", onclick: move |event| {
+                cx.props.on_state_change.call(props::WindowTypes::ConvertUpload)
+                },
                 img {src: "./src/assets/menu-image.svg", alt: "Convert from Image"}
                 div { class: "menu-content-button-text",
                     "Convert from Image"
