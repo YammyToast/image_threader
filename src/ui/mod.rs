@@ -14,7 +14,7 @@ mod convertUpload;
 pub fn App(cx: Scope) -> Element {
 
     // let mut state = props::WindowTypes::MainMenu;
-    let mut app_state = use_state(cx, || props::WindowTypes::MainMenu); 
+    let mut app_state = use_state(cx, || props::WindowTypes::ConvertUpload); 
 
     let stateHandler = move |value: props::WindowTypes| {app_state.set(value)};
 
@@ -31,7 +31,10 @@ pub fn App(cx: Scope) -> Element {
 
     cx.render(rsx! {
         div {
-            style { include_str!("./style.css") }
+            script { 
+                include_str!("./web/jquery-3.7.0.min.js")
+            }
+            style { include_str!("./web/style.css") }
             main {
                 div { id: "debug", "State: {app_state:?}" }
                 div { class: "main-wrapper",

@@ -136,3 +136,48 @@ button {
     text-align: center;
 
 }
+
+
+/* ========================================================================================================================================================= */
+
+.cu-row-grid {
+    display: grid;
+    height: 100vh;
+    width: 100vw;
+    grid-template-rows: 20% 20% 50% 10%;
+}
+
+.cu-row-grid input {
+    height: 0;
+    width: 0;
+
+}
+
+.cu-title {
+    display: flex;
+    position: relative;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.cu-p {
+    display: flex;
+    position: relative;
+    height: fit-content;
+    width: 80%;
+    /* align-items: center; */
+    justify-content: center;
+    padding: 1.25rem;
+    margin: auto;
+    border: 1px solid #2C2F32;
+}
+
+.cu-upload-card {
+    height: 100%;
+    width: 80%;
+
+}
