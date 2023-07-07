@@ -3,44 +3,32 @@
 
 use dioxus::prelude::*;
 
+mod menu;
+mod props;
+
+
+
 // define a component that renders a div with the text "Hello, world!"
 pub fn App(cx: Scope) -> Element {
+    let state: props::WindowState = props::WindowState::MainMenu;
+
+    let render: Element = match state {
+        props::WindowState::MainMenu => menu::Menu(cx),
+        _ => menu::Menu(cx)
+    };
+
+
+
     cx.render(rsx! {
         div {
             style { include_str!("./style.css") }
             main {
+                div { id: "debug", "State: {state:?}" }
                 div { class: "main-wrapper",
-                    div { class: "menu-row-grid",
-                        div { class: "menu-grid-item menu-header",
-                            img {
-                                src: "./src/assets/menu-title-logo.svg"
-
-                            }
-                        },
-                        div { class: "menu-grid-item",
-                            div { class: "menu-content-button",     
-                                img {src: "./src/assets/menu-image.svg", alt: "Convert from Image"}
-                                div { class: "menu-content-button-text",
-                                    "Convert from Image"
-                                }
-                            },
-                            div { class: "menu-content-button",     
-                                img {src: "./src/assets/menu-image.svg"}
-                                div { class: "menu-content-button-text",
-                                    "View Converted Image"
-                                }
-                            },
-                        },
-                        div { class: "menu-grid-item menu-footer",
-                            div { class: "menu-footer-text",
-                                "YammyToast, 2023"
-                            }
-
-                        }
-
-                    }
+                    render
                 }
             }
         }
     })
 }
+
