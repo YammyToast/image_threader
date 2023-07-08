@@ -1,5 +1,4 @@
 #![allow(non_snake_case)]
-// import the prelude to get access to the `rsx!` macro and the `Scope` and `Element` types
 
 
 use dioxus::prelude::*;
@@ -10,22 +9,12 @@ mod convertUpload;
 
 
 
-// define a component that renders a div with the text "Hello, world!"
 pub fn App(cx: Scope) -> Element {
 
-    // let mut state = props::WindowTypes::MainMenu;
     let mut app_state = use_state(cx, || props::WindowTypes::ConvertUpload); 
+    let mut file_obj = use_state(cx, || )
 
     let stateHandler = move |value: props::WindowTypes| {app_state.set(value)};
-
-    // let render: Element = match app_state.get() {
-    //     props::WindowTypes::MainMenu => {
-    //         rsx! {
-
-    //         }
-    //     },
-    //     _ => menu::Menu(cx, app_state)
-    // };
 
 
 

@@ -10,7 +10,7 @@ pub fn ConvertUpload<'a>(cx: Scope<'a>, on_state_change: EventHandler<'a, props:
                 "Upload an Image"},
             div {
                 div { class: "cu-p",
-                    "Select a file to upload. Currently supported image types are: "
+                    "Select a file to upload. Supported image types are: "
                     br {}
                     "test"
                     br {}
@@ -30,11 +30,16 @@ pub fn ConvertUpload<'a>(cx: Scope<'a>, on_state_change: EventHandler<'a, props:
                     accept: ".png,.jpg",
                 }
             },
-            div {
-                button { onclick: move |event| {
+            div { class: "cu-footer",
+                button { class: "cu-footer-button button-exit", onclick: move |event| {
                     cx.props.on_state_change.call(props::WindowTypes::MainMenu)
                     },
                     "Back"
+                }
+                button { class: "cu-footer-button button-submit", onclick: move |event| {
+                    cx.props.on_state_change.call(props::WindowTypes::ConfigureConvert)
+                    },
+                    "Convert"
                 }
             },
 

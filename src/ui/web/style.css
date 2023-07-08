@@ -1,5 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap');
 
+:root {
+    --white: #FCFCFC;
+    --white2: #B1B1B1;
+    --grey: #2C2F32;
+    --grey2: #1F2123;
+    --blue: #6564DB;
+    --blue2: #47469A;
+    --red: #DB6565;
+    --red2: #9A4747;
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -26,13 +37,50 @@ button {
     font-size: inherit;
 }
 
+.button-exit {
+    background-color: var(--red);
+    color: var(--white)
+}
+
+.button-exit:hover {
+    transition: 255ms ease-in-out;
+    background-color: var(--red2);
+    color: var(--white2)
+}
+
+.button-exit:not(:hover) {
+    transition: 255ms ease-in-out;
+    background-color: var(--red);
+    color: var(--white)
+}
+
+
+.button-submit {
+    background-color: var(--blue);
+    color: var(--white);
+}
+
+.button-submit:hover {
+    transition: 255ms ease-in-out;
+    background-color: var(--blue2);
+    color: var(--white2)
+}
+
+.button-submit:not(:hover) {
+    transition: 255ms ease-in-out;
+    background-color: var(--blue);
+    color: var(--white)
+}
+
+
+
 #debug {
     position: absolute;
     display: block;
     top: 0;
     left: 0;
     padding: 1.25rem;
-    color: #2C2F32;
+    color: var(--grey);
 
 }
 
@@ -42,7 +90,11 @@ button {
     justify-content: center;
     height: 100vh;
     width: 100vw;
+    background-color: var(--white);
 }
+
+/* ========================================================================================================================================================= */
+
 
 .menu-row-grid {
     display: grid;
@@ -69,7 +121,7 @@ button {
 .menu-header {
     font-size: 2rem;
     font-weight: 700;
-    color: #2C2F32
+    color: var(--grey);
 }
 
 .menu-header img {
@@ -80,7 +132,7 @@ button {
 
 .menu-footer {
     justify-content: right;
-    background-color: #2C2F32;
+    background-color: var(--grey);
 }
 
 .menu-footer-text {
@@ -101,10 +153,10 @@ button {
     height: fit-content;
     padding: 0 1.25em;
     margin: 0 2.5rem;
-    background-color: #2C2F32;
+    background-color: var(--grey);
     align-items: center;
     justify-content: center;
-    color: #fcfcfc;
+    color: var(--white);
     border-radius: 0.5rem;
     cursor: pointer;
 
@@ -112,12 +164,14 @@ button {
 
 .menu-content-button:hover {
     transition: ease-in-out 255ms;
-    background-color: #1F2123;
+    background-color: var(--grey2);
+    color: var(--white2);
 }
 
 .menu-content-button:not(:hover) {
     transition: ease-in-out 255ms;
-    background-color: #2C2F32;
+    background-color: var(--grey);
+    color: var(--white);
 }
 
 .menu-content-button img {
@@ -173,7 +227,7 @@ button {
     justify-content: center;
     padding: 1.25rem;
     margin: auto;
-    border: 1px solid #2C2F32;
+    border: 1px solid var(--grey);
 }
 
 .cu-upload-card {
@@ -181,3 +235,26 @@ button {
     width: 80%;
 
 }
+
+.cu-footer {
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--grey);
+    flex-direction: row;
+    display: flex;
+}
+
+.cu-footer-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: fit-content;
+    width: 20vh;
+    margin: 1.25rem;
+    padding: 0.625rem;
+    cursor: pointer;
+    border-radius: 0.5rem;
+}
+

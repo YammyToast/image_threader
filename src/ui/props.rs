@@ -10,3 +10,9 @@ pub enum WindowTypes {
     ConvertRender
 
 }
+
+
+pub struct FileObject {
+    file_address: str
+
+}
