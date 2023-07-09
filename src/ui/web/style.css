@@ -201,10 +201,8 @@ button {
     grid-template-rows: 20% 20% 50% 10%;
 }
 
-.cu-row-grid input {
-    height: 0;
-    width: 0;
-
+.cu-row-grid input[type="file"] {
+        display: none;
 }
 
 .cu-title {
@@ -225,15 +223,63 @@ button {
     width: 80%;
     /* align-items: center; */
     justify-content: center;
-    padding: 1.25rem;
+    padding: 1.25rem 0;
     margin: auto;
-    border: 1px solid var(--grey);
+    background-color: var(--grey);
+    color: var(--white);
+    border-radius: 0.5em;
 }
 
 .cu-upload-card {
-    height: 100%;
+    display: grid;
+    grid-template-columns: 30% 70%;
+    height: 80%;
     width: 80%;
+    margin: auto;
+}
 
+.cu-upload-card img {
+    aspect-ratio: 5;
+    height: 20%;
+    /* margin-left: 0.1rem; */
+}
+
+.cu-upload-button {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    padding: 0 1.25em;
+    background-color: var(--grey);
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+    cursor: pointer;
+    border-top-left-radius: 0.5em;
+    border-bottom-left-radius: 0.5em;
+}
+
+.cu-upload-button:hover {
+    transition: ease-in-out 255ms;
+    background-color: var(--grey2);
+    color: var(--white2);
+}
+
+.cu-upload-button:not(:hover) {
+    transition: ease-in-out 255ms;
+    background-color: var(--grey);
+    color: var(--white);
+}
+
+.cu-upload-preview {
+    display: grid;
+    position: relative;
+    grid-template-rows: 10% 90%;
+    height: 100%;
+    width: 100%;
+    border-top-right-radius: 0.5em;
+    border-bottom-right-radius: 0.5em;
 }
 
 .cu-footer {

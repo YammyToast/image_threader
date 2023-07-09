@@ -7,12 +7,42 @@ pub enum WindowTypes {
     ViewUpload,
     ConfigureConvert,
     Loading,
-    ConvertRender
-
+    ConvertRender,
 }
 
+#[derive(Debug)]
+pub enum ExtensionTypes {
+    PNG,
+    JPG,
+    NA,
+}
 
 pub struct FileObject {
-    file_address: str
+    loaded: bool,
+    pub file_address: String,
+    extension_type: ExtensionTypes,
+    width: u32,
+    height: u32,
+}
 
+impl FileObject {
+    pub fn new_empty() -> Self {
+        FileObject {
+            loaded: false,
+            file_address: String::from(""),
+            extension_type: ExtensionTypes::NA,
+            width: 0,
+            height: 0,
+        }
+    }
+
+    pub fn new_file(addr: String) -> Option<Self> {
+        Some(FileObject {
+            loaded: true,
+            file_address: addr,
+            extension_type: ExtensionTypes::NA,
+            width: 0,
+            height: 0,
+        })
+    }
 }
