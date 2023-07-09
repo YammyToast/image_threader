@@ -15,9 +15,10 @@ pub fn App(cx: Scope) -> Element {
     let mut file_obj = use_state(cx, || props::FileObject::new_empty());
 
     let stateHandler = move |value: props::WindowTypes| {app_state.set(value)};
-    let cuHandler = move |value: String| {
-        println!("Uploaded: {value:?}");
-        match props::FileObject::new_file(value) {
+    let cuHandler = move |data: (String, String)| {
+        println!("{0}", format!("Uploaded: {0:?}, Data: {1:?}", data.0, data.1));
+        
+        match props::FileObject::new_file(data.0, String::from("")) {
             Some(obj) => file_obj.set(obj),
             _ => println!("Invalid File")
         }

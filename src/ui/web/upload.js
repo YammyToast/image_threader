@@ -8,7 +8,8 @@ function handleFileSelect(evt) {
 
     reader.onload = (function(theFile) {
         return function(e) {
-            console.log(e.target.result);
+            $('#upload_data_buffer').attr('value', e.target.result);
+            document.getElementById('upload_data_buffer').dispatchEvent(new Event('input', { bubbles: true }));
         }
 
     })(f);

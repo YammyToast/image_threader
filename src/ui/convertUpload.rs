@@ -3,7 +3,7 @@ use dioxus::prelude::*;
 use super::props;
 
 #[inline_props]
-pub fn ConvertUpload<'a>(cx: Scope<'a>, on_state_change: EventHandler<'a, props::WindowTypes>, on_file_upload: EventHandler<'a, String>) -> Element<'a> {
+pub fn ConvertUpload<'a>(cx: Scope<'a>, on_state_change: EventHandler<'a, props::WindowTypes>, on_file_upload: EventHandler<'a, (String, String)>) -> Element<'a> {
     cx.render(rsx!(
         script { 
             include_str!("./web/upload.js")
@@ -38,10 +38,19 @@ pub fn ConvertUpload<'a>(cx: Scope<'a>, on_state_change: EventHandler<'a, props:
                     r#type: "file",
                     accept: ".png,.jpg",
                     name: "files[]",
+                    // oninput: move |event| {
+                    //     println!("{event:?}");
+                    //     cx.props.on_file_upload.call((event.value.clone(), String::from("temp")))
+                        
+                    // }
+                }
+                input {
+                    id: "upload_data_buffer",
+                    r#type: "text",
+                    name: "upload_default_buffer",
                     oninput: move |event| {
                         println!("{event:?}");
-                        cx.props.on_file_upload.call(event.value.clone())
-                        
+                        cx.props.on_file_upload.call((String::from("temp"), String::from("temp")));
                     }
                 }
             },
