@@ -6,10 +6,10 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+base64 = "0.21.2"
 dioxus = "0.3.2"
 dioxus-desktop = "0.3.0"
 image = "0.24.6"
-nfd = "0.0.4"
 tinyppm = "0.2.0"
 
 [package.metadata.bundle]

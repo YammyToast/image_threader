@@ -202,7 +202,12 @@ button {
 }
 
 .cu-row-grid input[type="file"] {
-        display: none;
+    display: none;
+}
+
+.cu-row-grid input[type="text"] {
+    display: none;
+
 }
 
 .cu-title {
@@ -250,7 +255,6 @@ button {
     flex-direction: column;
     height: 100%;
     width: 100%;
-    padding: 0 1.25em;
     background-color: var(--grey);
     align-items: center;
     justify-content: center;
@@ -280,6 +284,12 @@ button {
     width: 100%;
     border-top-right-radius: 0.5em;
     border-bottom-right-radius: 0.5em;
+    cursor: pointer;
+}
+
+.cu-upload-title {
+    padding: 0.625rem;
+
 }
 
 .cu-footer {
@@ -303,4 +313,3 @@ button {
     cursor: pointer;
     border-radius: 0.5rem;
 }
-

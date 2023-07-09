@@ -3,9 +3,21 @@ use dioxus::prelude::*;
 use super::props;
 
 #[inline_props]
-pub fn ConvertUpload<'a>(cx: Scope<'a>, on_state_change: EventHandler<'a, props::WindowTypes>, on_file_upload: EventHandler<'a, (String, String)>) -> Element<'a> {
+pub fn ConvertUpload<'a>(
+    cx: Scope<'a>,
+    on_state_change: EventHandler<'a, props::WindowTypes>,
+    on_file_upload: EventHandler<'a, String>,
+    file_obj: &'a props::FileObject,
+) -> Element<'a> {
+    let filename = match cx.props.file_obj.loaded {
+        true => cx.props.file_obj.file_address.clone(),
+        false => String::from("")
+
+    };
+
+
     cx.render(rsx!(
-        script { 
+        script {
             include_str!("./web/upload.js")
         }
         div { class: "cu-row-grid",
@@ -28,29 +40,24 @@ pub fn ConvertUpload<'a>(cx: Scope<'a>, on_state_change: EventHandler<'a, props:
                         img {src: "./src/assets/cu-upload.svg"}
                         "Click to Upload"
                     }
-                    div {
-                        "TWATW"
+                    div { class: "cu-upload-title",
+                        filename
                     }
 
                 }
-                input { 
+                input {
                     id: "upload_default",
                     r#type: "file",
                     accept: ".png,.jpg",
                     name: "files[]",
-                    // oninput: move |event| {
-                    //     println!("{event:?}");
-                    //     cx.props.on_file_upload.call((event.value.clone(), String::from("temp")))
-                        
-                    // }
+
                 }
                 input {
                     id: "upload_data_buffer",
                     r#type: "text",
                     name: "upload_default_buffer",
                     oninput: move |event| {
-                        println!("{event:?}");
-                        cx.props.on_file_upload.call((String::from("temp"), String::from("temp")));
+                        cx.props.on_file_upload.call(event.value.clone());
                     }
                 }
             },
@@ -68,6 +75,6 @@ pub fn ConvertUpload<'a>(cx: Scope<'a>, on_state_change: EventHandler<'a, props:
             },
 
         }
-        
+
     ))
 }

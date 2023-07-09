@@ -15,14 +15,17 @@ pub fn App(cx: Scope) -> Element {
     let mut file_obj = use_state(cx, || props::FileObject::new_empty());
 
     let stateHandler = move |value: props::WindowTypes| {app_state.set(value)};
-    let cuHandler = move |data: (String, String)| {
-        println!("{0}", format!("Uploaded: {0:?}, Data: {1:?}", data.0, data.1));
-        
-        match props::FileObject::new_file(data.0, String::from("")) {
-            Some(obj) => file_obj.set(obj),
-            _ => println!("Invalid File")
+    let cuHandler = move |data: String| {
+        let parts = data.split("?,");
+        let collection = parts.collect::<Vec<&str>>();
+        if (collection.len() < 2) {
+            panic!("Invalid File");
         }
-        // file_obj.set(props::FileObject::new_file(value));
+
+        match props::FileObject::new_from_base64(String::from(collection[0]), String::from(collection[1])) {
+            Some(obj) => file_obj.set(obj),
+            _ => panic!("Invalid File")
+        }
     };
 
 
@@ -33,7 +36,12 @@ pub fn App(cx: Scope) -> Element {
             }
             style { include_str!("./web/style.css") }
             main {
+
                 div { id: "debug", format!("State: {0:?}, File: {1:?} ", app_state, file_obj.file_address) }
+
+
+
+
                 div { class: "main-wrapper",
                     match app_state.get() {
                         props::WindowTypes::MainMenu => rsx! { menu::Menu {
@@ -41,7 +49,8 @@ pub fn App(cx: Scope) -> Element {
                         }},
                         props::WindowTypes::ConvertUpload => rsx! { convertUpload::ConvertUpload {
                             on_state_change: stateHandler,
-                            on_file_upload: cuHandler
+                            on_file_upload: cuHandler,
+                            file_obj: file_obj.get()
                         }},
                         _ => rsx! {menu::Menu {
                             on_state_change: stateHandler

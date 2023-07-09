@@ -1,4 +1,6 @@
 use dioxus::prelude::*;
+use base64::{Engine as _, alphabet, engine::{self, general_purpose}};
+
 
 #[derive(Debug)]
 pub enum WindowTypes {
@@ -18,7 +20,7 @@ pub enum ExtensionTypes {
 }
 
 pub struct FileObject {
-    loaded: bool,
+    pub loaded: bool,
     pub file_address: String,
     extension_type: ExtensionTypes,
     width: u32,
@@ -38,7 +40,7 @@ impl FileObject {
         }
     }
 
-    pub fn new_file(addr: String, data: String) -> Option<Self> {
+    pub fn new_from_base64(addr: String, data_b64: String) -> Option<Self> {
         Some(FileObject {
             loaded: true,
             file_address: addr,
