@@ -72,7 +72,11 @@ button {
     color: var(--white)
 }
 
-
+.button-submit-disabled {
+    border: 1px solid var(--blue);
+    color: var(--white2);
+    cursor: default !important;
+}
 
 #debug {
     position: absolute;
