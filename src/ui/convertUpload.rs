@@ -22,12 +22,12 @@ pub fn ConvertUpload<'a>(
             button { class: "cu-footer-button button-submit", onclick: move |event| {
                 cx.props.on_state_change.call(props::WindowTypes::ConfigureConvert)
                 },
-                "Convert"
+                "Next"
             }
         },
         false => rsx! {
             div { class: "cu-footer-button button-submit-disabled ",
-            "Convert"
+            "Next"
         }
         }
     };

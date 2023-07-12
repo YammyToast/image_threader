@@ -25,7 +25,7 @@ pub struct FileObject {
     extension_type: ExtensionTypes,
     width: u32,
     height: u32,
-    data: String
+    pub data_url: String,
 }
 
 impl FileObject {
@@ -36,18 +36,24 @@ impl FileObject {
             extension_type: ExtensionTypes::NA,
             width: 0,
             height: 0,
-            data: String::from("")
+            data_url: String::from("")
         }
     }
 
-    pub fn new_from_base64(addr: String, data_b64: String) -> Option<Self> {
+    pub fn new_from_url(addr: String, data_url: String) -> Option<Self> {
+        let parts = data_url.split(",");
+        let collection = parts.collect::<Vec<&str>>();
+        // println!("{:?}", collection);
+        let bytes = general_purpose::STANDARD.decode(collection[1]).unwrap();
+        println!("{:?}", bytes.len());
         Some(FileObject {
             loaded: true,
             file_address: addr,
             extension_type: ExtensionTypes::NA,
             width: 0,
             height: 0,
-            data: String::from("")
+            data_url: data_url
         })
     }
+
 }

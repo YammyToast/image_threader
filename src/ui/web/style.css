@@ -88,6 +88,10 @@ button {
 
 }
 
+.text-invis {
+    display: none;
+}
+
 .main-wrapper {
     display: flex;
     align-items: center;
@@ -316,4 +320,74 @@ button {
     padding: 0.625rem;
     cursor: pointer;
     border-radius: 0.5rem;
+}
+
+/* ========================================================================================================================================================= */
+
+.cc-row-grid {
+    display: grid;
+    height: 100vh;
+    width: 100vw;
+    grid-template-rows: 20% 70% 10%;
+}
+
+.cc-title {
+    display: flex;
+    position: relative;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+#render-data-buffer {
+    display: none;
+}
+
+.cc-content-row-grid {
+    display: grid;
+    grid-template-rows: 40% 60%;
+    margin: auto;
+    height: 100%;
+    width: 80%;
+    align-items: center;
+    justify-content: center;
+}
+
+.cc-canvas {
+    display: flex;
+    height: 100%;
+    aspect-ratio: 1;
+    margin: auto;
+}
+
+.cc-input-item {
+    display: grid;
+    width: 100%;
+    height: fit-content;
+    padding: 0.625rem;
+    flex-direction: row;
+    border: 1px solid var(--grey2);
+    grid-template-columns: 40% 60%;
+}
+
+.cc-input-item input {
+    margin: 0 0.625rem;
+}
+
+.cc-input-text {
+    border: 1px solid var(--grey);
+    text-align: right;
+}
+
+.cc-input-label {
+
+
+}
+
+.cc-input-item-small-text {
+    width: 36px;
+
 }

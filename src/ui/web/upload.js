@@ -15,7 +15,7 @@ function handleFileSelect(evt) {
         }
 
     })(f);
-    reader.readAsText(f);
+    reader.readAsDataURL(f);
 }
 
 // var myFile = $('#upload_default').prop('files');

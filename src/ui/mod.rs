@@ -6,7 +6,7 @@ use dioxus::prelude::*;
 mod menu;
 mod props;
 mod convertUpload;
-
+mod configureConvert;
 
 
 pub fn App(cx: Scope) -> Element {
@@ -22,17 +22,21 @@ pub fn App(cx: Scope) -> Element {
             panic!("Invalid File");
         }
 
-        match props::FileObject::new_from_base64(String::from(collection[0]), String::from(collection[1])) {
+        match props::FileObject::new_from_url(String::from(collection[0]), String::from(collection[1])) {
             Some(obj) => file_obj.set(obj),
             _ => panic!("Invalid File")
         }
     };
 
 
+
     cx.render(rsx! {
         div {
             script { 
                 include_str!("./web/jquery-3.7.0.min.js")
+            }
+            script { 
+                include_str!("./web/p5.min.js")
             }
             style { include_str!("./web/style.css") }
             main {
@@ -51,6 +55,11 @@ pub fn App(cx: Scope) -> Element {
                             on_state_change: stateHandler,
                             on_file_upload: cuHandler,
                             file_obj: file_obj.get()
+                        }},
+                        props::WindowTypes::ConfigureConvert => rsx! { configureConvert::ConfigureConvert {
+                            on_state_change: stateHandler,
+                            file_obj: file_obj.get()
+
                         }},
                         _ => rsx! {menu::Menu {
                             on_state_change: stateHandler
