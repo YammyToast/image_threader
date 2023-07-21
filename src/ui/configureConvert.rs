@@ -7,6 +7,8 @@ pub fn ConfigureConvert<'a>(
     cx: Scope<'a>,
     on_state_change: EventHandler<'a, props::WindowTypes>,
     file_obj: &'a props::FileObject,
+    on_output_dimension_change: EventHandler<'a, (Option<u32>, Option<u32>)>
+    
 ) -> Element<'a> {
     if (cx.props.file_obj.loaded == false) {
         cx.props
@@ -25,6 +27,9 @@ pub fn ConfigureConvert<'a>(
             name: "render_default_buffer",
             value: "{cx.props.file_obj.data_url}"
         },
+        div { class: "cu-hidden-image-render", id: "hidden-image-default"
+
+        },
         div { class: "cc-row-grid",
             div { class: "cc-title",
                 "Converting \"", cx.props.file_obj.file_address.clone(), "\""
@@ -34,42 +39,66 @@ pub fn ConfigureConvert<'a>(
                 div {
                     div { class: "cc-input-item",
                         div { class: "cc-input-label",
-                            "Image Output Dimensions"
+                            "Image Output Dimensions:"
                         },
                         div {
                             label {
                                 r#for: "output-dimension-x",
-                                "X: "
+                                "Width: "
                             }
                             input { class: "cc-input-text cc-input-item-small-text",
                                 r#type: "text",
                                 name: "output-dimension-x",
                                 min: 1,
                                 maxlength: 4,
-                                value: 9999
+                                value: "{cx.props.file_obj.width.to_string()}",
+                                oninput: move |event| {
+
+                                    cx.props.on_output_dimension_change.call((Some(event.value.clone().parse::<u32>().unwrap()), None))
+                                }
                                 // value: 512
                             }label {
                                 r#for: "output-dimension-y",
-                                "Y: "
+                                "Height: "
                             }
                             input { class: "cc-input-text cc-input-item-small-text",
                                 r#type: "text",
                                 name: "output-dimension-y",
                                 min: 1,
                                 maxlength: 4,
-                                value: 9999
+                                value: "{cx.props.file_obj.height.to_string()}",
+                                oninput: move |event| {
+                                    cx.props.on_output_dimension_change.call((None, Some(event.value.clone().parse::<u32>().unwrap())))
+                                }
                                 // value: 512
                             }
                         }
+                    },
+                    div {
+                        div { class: "cc-input-item",
+                            div { class: "cc-input-label",
+                                "Image Output Dimensions:"
+                            },
+                            div {
+    
+                            }
+                        }
+    
                     }
 
-                }
+                },
+
             },
             div { class: "cu-footer",
             button { class: "cu-footer-button button-exit", onclick: move |event| {
                 cx.props.on_state_change.call(props::WindowTypes::ConvertUpload)
                 },
                 "Back"
+            },
+            button { class: "cu-footer-button button-submit", onclick: move |event| {
+                cx.props.on_state_change.call(props::WindowTypes::ConvertRender)
+                },
+                "Next"
             }
             }
         }

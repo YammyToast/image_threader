@@ -10,8 +10,19 @@ function handleFileSelect(evt) {
 
     reader.onload = (function(theFile) {
         return function(e) {
-            $('#upload_data_buffer').attr('value', `${evt.target.files[0].name}?,${e.target.result}`);
-            document.getElementById('upload_data_buffer').dispatchEvent(new Event('input', { bubbles: true }));
+            var data_image = document.createElement('img');
+            data_image.addEventListener('load', function() {
+                // console.log(`Height: ${data_image.height}, Width: ${data_image.width}`)
+                $('#upload_data_buffer').attr('value', 
+                `${evt.target.files[0].name}
+                ?,${data_image.height}
+                ?,${data_image.width}
+                ?,${e.target.result}`);
+                document.getElementById('upload_data_buffer').dispatchEvent(new Event('input', { bubbles: true }));
+                
+
+            })
+            data_image.src = `${e.target.result}`
         }
 
     })(f);

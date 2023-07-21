@@ -16,6 +16,14 @@ pub fn ConvertUpload<'a>(
         )),
         false => String::from(""),
     };
+    let dimensions = match cx.props.file_obj.loaded {
+        true => String::from(format!(
+            "File Dimensions: {0} x {1}",
+            cx.props.file_obj.width,
+            cx.props.file_obj.height
+        )),
+        false => String::from("")
+    };
 
     let submit_button = match cx.props.file_obj.loaded {
         true => rsx! {
@@ -58,6 +66,8 @@ pub fn ConvertUpload<'a>(
                     }
                     div { class: "cu-upload-title",
                         filename
+                        br {}
+                        dimensions
                     }
 
                 }

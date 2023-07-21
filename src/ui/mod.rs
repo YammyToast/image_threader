@@ -3,6 +3,7 @@
 
 use dioxus::prelude::*;
 
+
 mod menu;
 mod props;
 mod convertUpload;
@@ -21,14 +22,42 @@ pub fn App(cx: Scope) -> Element {
         if (collection.len() < 2) {
             panic!("Invalid File");
         }
-
-        match props::FileObject::new_from_url(String::from(collection[0]), String::from(collection[1])) {
+        match props::FileObject::new_from_url(
+            String::from(collection[0]),
+            String::from(collection[3]),
+            String::from(collection[1]).trim().parse::<u32>().unwrap(),
+            String::from(collection[2]).trim().parse::<u32>().unwrap()
+            
+        ) {
             Some(obj) => file_obj.set(obj),
             _ => panic!("Invalid File")
         }
     };
 
+    let dimensionHandler = move |values: (Option<u32>, Option<u32>) | {
+        println!("{values:?}");
 
+        match values.0 {
+            None => {},
+            Some(e) => {
+                file_obj.with_mut(|obj| {
+                    obj.output_width = e;
+                    println!("{:?}", obj.output_width)
+                });
+                println!("{:?}", file_obj.output_width)
+            }
+        }
+        match values.1 {
+            None => {},
+            Some(e) => {
+                file_obj.with_mut(|obj| {
+                    obj.output_height = e
+
+                });
+
+            }
+        }
+    };
 
     cx.render(rsx! {
         div {
@@ -58,8 +87,8 @@ pub fn App(cx: Scope) -> Element {
                         }},
                         props::WindowTypes::ConfigureConvert => rsx! { configureConvert::ConfigureConvert {
                             on_state_change: stateHandler,
-                            file_obj: file_obj.get()
-
+                            file_obj: file_obj.get(),
+                            on_output_dimension_change: dimensionHandler
                         }},
                         _ => rsx! {menu::Menu {
                             on_state_change: stateHandler

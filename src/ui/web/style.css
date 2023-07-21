@@ -322,6 +322,16 @@ button {
     border-radius: 0.5rem;
 }
 
+.cu-hidden-image-render {
+    display: none;
+    height: fit-content;
+    width: fit-content;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+}
+
 /* ========================================================================================================================================================= */
 
 .cc-row-grid {
