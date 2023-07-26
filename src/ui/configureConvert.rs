@@ -66,10 +66,9 @@ pub fn ConfigureConvert<'a>(
                                 maxlength: 4,
                                 value: "{cx.props.file_obj.output_width.to_string()}",
                                 oninput: move |event| {
-                                    println!("Val {:?}", event.value);
                                     let mut val = verify_input_u32(event.value.clone());
                                     match val {
-                                        None => {println!("NONE")},
+                                        None => {},
                                         Some(e) => {cx.props.on_output_dimension_change.call((Some(e), None))}
                                     }
                                 },

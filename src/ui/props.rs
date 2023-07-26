@@ -47,19 +47,29 @@ impl FileObject {
     pub fn new_from_url(addr: String, data_url: String, height: u32, width: u32) -> Option<Self> {
         let parts = data_url.split(",");
         let collection = parts.collect::<Vec<&str>>();
-        // println!("{:?}", collection);
-        let bytes = general_purpose::STANDARD.decode(collection[1]).unwrap();
-        println!("{:?}", bytes.len());
+
+        let metadata = *collection.get(0).unwrap();
+        let metadata_parts = metadata.split(&['/', ';']).collect::<Vec<&str>>();
+
         Some(FileObject {
             loaded: true,
             file_address: addr,
-            extension_type: ExtensionTypes::NA,
+            extension_type: Self::match_file_extension(metadata_parts.get(1).unwrap()),
             width: width,
             height: height,
             output_width: width,
             output_height: height,
             data_url: data_url
         })
+    }
+
+    fn match_file_extension(_file_extension: &str) -> ExtensionTypes {
+        match _file_extension {
+            "png" => ExtensionTypes::PNG,
+            "jpeg" => ExtensionTypes::JPG,
+            _ => ExtensionTypes::NA
+
+        }
     }
 
 
