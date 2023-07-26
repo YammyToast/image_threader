@@ -28,6 +28,8 @@ pub struct FileObject {
     pub output_width: u32,
     pub output_height: u32,
     pub data_url: String,
+    pub flip_x: bool,
+    pub flip_y: bool
 }
 
 impl FileObject {
@@ -40,7 +42,9 @@ impl FileObject {
             height: 0,
             output_width: 0,
             output_height: 0,
-            data_url: String::from("")
+            data_url: String::from(""),
+            flip_x: false,
+            flip_y: false
         }
     }
 
@@ -59,14 +63,16 @@ impl FileObject {
             height: height,
             output_width: width,
             output_height: height,
-            data_url: data_url
+            data_url: data_url,
+            flip_x: false,
+            flip_y: false
         })
     }
 
     fn match_file_extension(_file_extension: &str) -> ExtensionTypes {
         match _file_extension {
             "png" => ExtensionTypes::PNG,
-            "jpeg" => ExtensionTypes::JPG,
+            "jpg" | "jpeg" => ExtensionTypes::JPG,
             _ => ExtensionTypes::NA
 
         }

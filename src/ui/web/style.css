@@ -383,6 +383,10 @@ button {
     grid-template-columns: 40% 60%;
 }
 
+.cc-input-item:first-child {
+    border-bottom: none;
+}
+
 .cc-input-item input {
     margin: 0 0.625rem;
 }

@@ -10,7 +10,8 @@ pub fn ConfigureConvert<'a>(
     cx: Scope<'a>,
     on_state_change: EventHandler<'a, props::WindowTypes>,
     file_obj: &'a props::FileObject,
-    on_output_dimension_change: EventHandler<'a, (Option<u32>, Option<u32>)>
+    on_output_dimension_change: EventHandler<'a, (Option<u32>, Option<u32>)>,
+    on_output_flip_change: EventHandler<'a, (Option<bool>, Option<bool>)>
     
 ) -> Element<'a> {
     if (cx.props.file_obj.loaded == false) {
@@ -27,6 +28,14 @@ pub fn ConfigureConvert<'a>(
         if v == "" { v = "0".to_string() }
 
         return Some(v.parse::<u32>().unwrap());
+    }
+
+    fn match_checkbox_value(_input_value: String) -> bool {
+        let str_value = _input_value.as_str();
+        match str_value {
+            "true" => { return true },
+            "false" | _ => { return false}
+        }
     }
 
     cx.render(rsx!(
@@ -91,16 +100,35 @@ pub fn ConfigureConvert<'a>(
                             }
                         }
                     },
-                    div {
-                        div { class: "cc-input-item",
-                            div { class: "cc-input-label",
-                                "Image Output Dimensions:"
-                            },
-                            div {
-    
+                    div { class: "cc-input-item",
+                        div { class: "cc-input-label",
+                        "Flip Axis:"
+                        },
+                        div {
+                            label {
+                                r#for: "output-dimension-x",
+                                "Flip X: "
                             }
+                            input { class: "",
+                                r#type: "checkbox",
+                                name: "output-flip-x",
+                                oninput: move |event| {
+                                    cx.props.on_output_flip_change.call((Some(match_checkbox_value(event.value.clone())), None))
+                                },
+                            }
+                            label {
+                                r#for: "output-dimension-y",
+                                "Flip Y: "
+                            }
+                            input { class: "",
+                                r#type: "checkbox",
+                                name: "output-flip-y",
+                                oninput: move |event| {
+                                    cx.props.on_output_flip_change.call((None, Some(match_checkbox_value(event.value.clone()))))
+                                },
+                            }
+
                         }
-    
                     }
 
                 },
