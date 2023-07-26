@@ -22,7 +22,7 @@ pub enum ExtensionTypes {
 pub struct FileObject {
     pub loaded: bool,
     pub file_address: String,
-    extension_type: ExtensionTypes,
+    pub extension_type: ExtensionTypes,
     pub width: u32,
     pub height: u32,
     pub output_width: u32,

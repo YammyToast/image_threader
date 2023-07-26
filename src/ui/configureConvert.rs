@@ -1,6 +1,9 @@
-use dioxus::prelude::*;
+use dioxus::{prelude::*, html::pattern};
+
+use regex::Regex;
 
 use super::props;
+
 
 #[inline_props]
 pub fn ConfigureConvert<'a>(
@@ -14,6 +17,16 @@ pub fn ConfigureConvert<'a>(
         cx.props
             .on_state_change
             .call(props::WindowTypes::ConvertUpload)
+    }
+
+    fn verify_input_u32(_input_value: String) -> Option<u32> {
+        let re = Regex::new(r"^[0-9]+$").unwrap();
+        if !re.is_match(_input_value.as_str()) {return None} 
+        
+        let mut v = _input_value;
+        if v == "" { v = "0".to_string() }
+
+        return Some(v.parse::<u32>().unwrap());
     }
 
     cx.render(rsx!(
@@ -51,13 +64,18 @@ pub fn ConfigureConvert<'a>(
                                 name: "output-dimension-x",
                                 min: 1,
                                 maxlength: 4,
-                                value: "{cx.props.file_obj.width.to_string()}",
+                                value: "{cx.props.file_obj.output_width.to_string()}",
                                 oninput: move |event| {
-
-                                    cx.props.on_output_dimension_change.call((Some(event.value.clone().parse::<u32>().unwrap()), None))
-                                }
-                                // value: 512
-                            }label {
+                                    println!("Val {:?}", event.value);
+                                    let mut val = verify_input_u32(event.value.clone());
+                                    match val {
+                                        None => {println!("NONE")},
+                                        Some(e) => {cx.props.on_output_dimension_change.call((Some(e), None))}
+                                    }
+                                },
+                                pattern: r"^[0-9]+$"
+                            }
+                            label {
                                 r#for: "output-dimension-y",
                                 "Height: "
                             }
@@ -66,7 +84,7 @@ pub fn ConfigureConvert<'a>(
                                 name: "output-dimension-y",
                                 min: 1,
                                 maxlength: 4,
-                                value: "{cx.props.file_obj.height.to_string()}",
+                                value: "{cx.props.file_obj.output_height.to_string()}",
                                 oninput: move |event| {
                                     cx.props.on_output_dimension_change.call((None, Some(event.value.clone().parse::<u32>().unwrap())))
                                 }

@@ -3,6 +3,8 @@
 
 use dioxus::prelude::*;
 
+use crate::ui::props::FileObject;
+
 
 mod menu;
 mod props;
@@ -12,8 +14,8 @@ mod configureConvert;
 
 pub fn App(cx: Scope) -> Element {
 
-    let mut app_state = use_state(cx, || props::WindowTypes::ConvertUpload); 
-    let mut file_obj = use_state(cx, || props::FileObject::new_empty());
+    let app_state = use_state(cx, || props::WindowTypes::ConvertUpload); 
+    let file_obj = use_state(cx, || props::FileObject::new_empty());
 
     let stateHandler = move |value: props::WindowTypes| {app_state.set(value)};
     let cuHandler = move |data: String| {
@@ -35,16 +37,13 @@ pub fn App(cx: Scope) -> Element {
     };
 
     let dimensionHandler = move |values: (Option<u32>, Option<u32>) | {
-        println!("{values:?}");
 
         match values.0 {
-            None => {},
+            None => {},            
             Some(e) => {
                 file_obj.with_mut(|obj| {
                     obj.output_width = e;
-                    println!("{:?}", obj.output_width)
                 });
-                println!("{:?}", file_obj.output_width)
             }
         }
         match values.1 {
