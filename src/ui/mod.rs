@@ -10,6 +10,7 @@ mod menu;
 mod props;
 mod convertUpload;
 mod configureConvert;
+mod convertRender;
 
 
 pub fn App(cx: Scope) -> Element {
@@ -76,7 +77,6 @@ pub fn App(cx: Scope) -> Element {
         }
     };
 
-    println!("X: {0:?}, Y: {1:?}", file_obj.get().flip_x, file_obj.get().flip_y);
 
     cx.render(rsx! {
         div {
@@ -89,7 +89,7 @@ pub fn App(cx: Scope) -> Element {
             style { include_str!("./web/style.css") }
             main {
 
-                // div { id: "debug", format!("State: {0:?}, File: {1:?} ", app_state, file_obj.file_address) }
+                div { id: "debug", format!("State: {0:?}, File: {1:?} ", app_state, file_obj.file_address) }
 
                 div { class: "main-wrapper",
                     match app_state.get() {
@@ -107,7 +107,11 @@ pub fn App(cx: Scope) -> Element {
                             on_output_dimension_change: dimensionHandler,
                             on_output_flip_change: flipHandler
                         }},
-                        _ => rsx! {menu::Menu {
+                        props::WindowTypes::ConvertRender => rsx! { convertRender::ConvertRender {
+                            on_state_change: stateHandler
+
+                        }},
+                        _ => rsx! { menu::Menu {
                             on_state_change: stateHandler
                         }}
 

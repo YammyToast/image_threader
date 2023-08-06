@@ -2,8 +2,6 @@ var data;
 
 
 var sketch = function(p) {
-    let x = 100;
-    let y = 100;
     var img;
 
     p.setup = () => {

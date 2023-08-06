@@ -405,3 +405,31 @@ button {
     width: 36px;
 
 }
+
+/* ========================================================================================================================================================= */
+
+.cr-row-grid {
+    position: relative;
+    display: grid;
+    height: 100%;
+    width: 100%;
+    grid-template-rows: 90% 10%;
+
+}
+
+.cr-main-column-grid {
+    position: relative;
+    display: grid;
+    height: 100%;
+    width: 100%;
+    grid-template-columns: 80% 20%;
+}
+
+.cr-canvas {
+    position: relative;
+    display: flex;
+    height: 100%;
+    width: 100%;
+    border: 1px solid var(--grey2); 
+
+}
