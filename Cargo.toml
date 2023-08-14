@@ -12,6 +12,7 @@ base64 = "0.21.2"
 image = "0.24.6"
 regex = "1.9.1"
 tinyppm = "0.2.0"
+zerocopy = "0.6.3"
 
 [package.metadata.bundle]
 name="ImageThreader"
