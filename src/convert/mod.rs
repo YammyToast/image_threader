@@ -1,6 +1,7 @@
 use crate::ui::props::{ExtensionTypes, FileObject};
 use image::{GenericImage, GenericImageView, DynamicImage, ImageResult, Rgb, RgbImage, ImageDecoder};
 use image::codecs::jpeg::JpegDecoder;
+use image::codecs::png::PngDecoder;
 use std::collections::{HashMap, VecDeque};
 use zerocopy::{AsBytes, FromBytes};
 
@@ -22,6 +23,9 @@ const DEFAULT: Vec<(&str, &ThreadFunction)> = Vec::new();
 pub fn main() {
     let file_obj = get_test_file_obj();
     let thread_obj = ThreadObject::new_from_fileobject(&file_obj);
+
+    let file_obj_2 = get_test_file_obj_two();
+    let thread_obj_2 = ThreadObject::new_from_fileobject(&file_obj_2);
     // println!("{:?}", thread_obj.derived_fileobject.data_url)
 }
 
@@ -40,10 +44,27 @@ fn get_test_file_obj() -> FileObject {
     }
 }
 
+fn get_test_file_obj_two() -> FileObject {
+    FileObject {
+        loaded: true,
+        file_address: String::from(""),
+        extension_type: ExtensionTypes::PNG,
+        width: 728,
+        height: 410,
+        output_width: 728,
+        output_height: 410,
+        flip_x: false,
+        flip_y: false,
+        data_url: String::from(include_str!("testobj2.txt"))
+    }
+
+}
+
 #[derive(Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
 pub enum ThreadObjectError {
     InvalidDataURL,
     InvalidImageData,
+    FormatConversionFail,
     VerifyFailed,
     UnknownAlgorithmName,
     AlgorithmTimedOut,
@@ -59,9 +80,17 @@ struct ThreadObject<'a> {
 }
 
 impl<'a> ThreadObject<'a> {
-    // fn decode_png(bytes: Vec<u8>) -> ImageResult<()> {
-
-    // }
+    fn decode_png(bytes: Vec<u8>, output_width: &u32, output_height: &u32) -> Result<DynamicImage, ThreadObjectError> {
+        let mut slice_bytes = bytes.as_slice();
+        let mut decoder = match PngDecoder::new(slice_bytes) {
+            Ok(dec) => dec,
+            Err(_) => return Err(ThreadObjectError::InvalidImageData)
+        };
+        // decoder.scale(*output_width as u16, *output_height as u16);
+        let img: DynamicImage = DynamicImage::from_decoder(decoder).unwrap();
+        img.save("test.jpg").unwrap();
+        Ok(img)
+    }
 
     fn decode_jpg(bytes: Vec<u8>, output_width: &u32, output_height: &u32) -> Result<DynamicImage, ThreadObjectError>
     {
@@ -74,6 +103,7 @@ impl<'a> ThreadObject<'a> {
         decoder.scale(*output_width as u16, *output_height as u16);
         // let mut buf: Vec<u16> = vec![0; (decoder.total_bytes()/2).try_into().unwrap()];
         let img: DynamicImage = DynamicImage::from_decoder(decoder).unwrap();
+        img.save("test.png").unwrap();
         Ok(img)        
     }
 
@@ -95,12 +125,19 @@ impl<'a> ThreadObject<'a> {
         let bytes: Vec<u8> = general_purpose::STANDARD.decode(base64).unwrap();
 
         let decode_result = match &file_extension {
-            // ExtensionTypes::PNG => ThreadObject::decode_png(),
+            ExtensionTypes::PNG => ThreadObject::decode_png(bytes, output_width, output_height),
             ExtensionTypes::JPG => ThreadObject::decode_jpg(bytes, output_width, output_height),
             _ => return Err(ThreadObjectError::UnsupportedFileType),
         };
 
-        Ok(RgbImage::new(10, 10))
+        let decode_img: DynamicImage = match decode_result {
+            Ok(img) => img,
+            Err(e) => return Err(e)            
+        };
+
+        let conversion_image: RgbImage = decode_img.into_rgb8();
+        conversion_image.save("burger.png").unwrap();
+        Ok(conversion_image)
     }
 
     pub fn new_from_fileobject(file_obj: &'a FileObject) -> Result<Self, ThreadObjectError> {
