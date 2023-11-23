@@ -1,0 +1,435 @@
+@import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap');
+
+:root {
+    --white: #FCFCFC;
+    --white2: #B1B1B1;
+    --grey: #2C2F32;
+    --grey2: #1F2123;
+    --blue: #6564DB;
+    --blue2: #47469A;
+    --red: #DB6565;
+    --red2: #9A4747;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Atkinson Hyperlegible', sans-serif;
+    -webkit-touch-callout: none;
+    /* iOS Safari */
+    -webkit-user-select: none;
+    /* Safari */
+    -khtml-user-select: none;
+    /* Konqueror HTML */
+    -moz-user-select: none;
+    /* Old versions of Firefox */
+    -ms-user-select: none;
+    /* Internet Explorer/Edge */
+    user-select: none;
+    /* Non-prefixed version, currently
+                                        supported by Chrome, Edge, Opera and Firefox */
+}
+
+button {
+    outline: none;
+    border: none;
+    font-family: inherit;
+    font-size: inherit;
+}
+
+.button-exit {
+    background-color: var(--red);
+    color: var(--white)
+}
+
+.button-exit:hover {
+    transition: 255ms ease-in-out;
+    background-color: var(--red2);
+    color: var(--white2)
+}
+
+.button-exit:not(:hover) {
+    transition: 255ms ease-in-out;
+    background-color: var(--red);
+    color: var(--white)
+}
+
+
+.button-submit {
+    background-color: var(--blue);
+    color: var(--white);
+}
+
+.button-submit:hover {
+    transition: 255ms ease-in-out;
+    background-color: var(--blue2);
+    color: var(--white2)
+}
+
+.button-submit:not(:hover) {
+    transition: 255ms ease-in-out;
+    background-color: var(--blue);
+    color: var(--white)
+}
+
+.button-submit-disabled {
+    border: 1px solid var(--blue);
+    color: var(--white2);
+    cursor: default !important;
+}
+
+#debug {
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 0;
+    padding: 1.25rem;
+    color: var(--grey);
+
+}
+
+.text-invis {
+    display: none;
+}
+
+.main-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+    background-color: var(--white);
+}
+
+/* ========================================================================================================================================================= */
+
+
+.menu-row-grid {
+    display: grid;
+    height: 100%;
+    width: 100%;
+    grid-template-rows: 40% 50% 10%;
+}
+
+.menu-grid-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    flex-direction: row;
+}
+
+.menu-content {
+    width: 80%;
+    margin: auto;
+}
+
+
+.menu-header {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--grey);
+}
+
+.menu-header img {
+    aspect-ratio: 5;
+    height: 40%;
+    margin-left: 0.1rem;
+}
+
+.menu-footer {
+    justify-content: right;
+    background-color: var(--grey);
+}
+
+.menu-footer-text {
+    height: fit-content;
+    width: fit-content;
+    text-align: right;
+    color: #fcfcfc;
+    display: flex;
+    padding: 0 1.25rem;
+    font-size: 0.75rem;
+}
+
+.menu-content-button {
+    position: relative;
+    aspect-ratio: 1;
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+    padding: 0 1.25em;
+    margin: 0 2.5rem;
+    background-color: var(--grey);
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+    border-radius: 0.5rem;
+    cursor: pointer;
+
+}
+
+.menu-content-button:hover {
+    transition: ease-in-out 255ms;
+    background-color: var(--grey2);
+    color: var(--white2);
+}
+
+.menu-content-button:not(:hover) {
+    transition: ease-in-out 255ms;
+    background-color: var(--grey);
+    color: var(--white);
+}
+
+.menu-content-button img {
+    display: flex;
+    position: relative;
+    aspect-ratio: 1;
+    width: 70%;
+    padding: 1.25rem 0 0.625rem 0;
+}
+
+.menu-content-button-text {
+    display: flex;
+    padding: 0.625rem 0 1.25rem 0;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+}
+
+
+/* ========================================================================================================================================================= */
+
+.cu-row-grid {
+    display: grid;
+    height: 100vh;
+    width: 100vw;
+    grid-template-rows: 20% 20% 50% 10%;
+}
+
+.cu-row-grid input[type="file"] {
+    display: none;
+}
+
+.cu-row-grid input[type="text"] {
+    display: none;
+
+}
+
+.cu-title {
+    display: flex;
+    position: relative;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.cu-p {
+    display: flex;
+    position: relative;
+    height: fit-content;
+    width: 80%;
+    /* align-items: center; */
+    justify-content: center;
+    padding: 1.25rem 0;
+    margin: auto;
+    background-color: var(--grey);
+    color: var(--white);
+    border-radius: 0.5em;
+}
+
+.cu-upload-card {
+    display: grid;
+    grid-template-columns: 30% 70%;
+    height: 80%;
+    width: 80%;
+    margin: auto;
+}
+
+.cu-upload-card img {
+    aspect-ratio: 5;
+    height: 20%;
+    /* margin-left: 0.1rem; */
+}
+
+.cu-upload-button {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    background-color: var(--grey);
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+    cursor: pointer;
+    border-top-left-radius: 0.5em;
+    border-bottom-left-radius: 0.5em;
+}
+
+.cu-upload-button:hover {
+    transition: ease-in-out 255ms;
+    background-color: var(--grey2);
+    color: var(--white2);
+}
+
+.cu-upload-button:not(:hover) {
+    transition: ease-in-out 255ms;
+    background-color: var(--grey);
+    color: var(--white);
+}
+
+.cu-upload-preview {
+    display: grid;
+    position: relative;
+    grid-template-rows: 10% 90%;
+    height: 100%;
+    width: 100%;
+    border-top-right-radius: 0.5em;
+    border-bottom-right-radius: 0.5em;
+    cursor: pointer;
+}
+
+.cu-upload-title {
+    padding: 0.625rem;
+
+}
+
+.cu-footer {
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--grey);
+    flex-direction: row;
+    display: flex;
+}
+
+.cu-footer-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: fit-content;
+    width: 20vh;
+    margin: 1.25rem;
+    padding: 0.625rem;
+    cursor: pointer;
+    border-radius: 0.5rem;
+}
+
+.cu-hidden-image-render {
+    display: none;
+    height: fit-content;
+    width: fit-content;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+}
+
+/* ========================================================================================================================================================= */
+
+.cc-row-grid {
+    display: grid;
+    height: 100vh;
+    width: 100vw;
+    grid-template-rows: 20% 70% 10%;
+}
+
+.cc-title {
+    display: flex;
+    position: relative;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+#render-data-buffer {
+    display: none;
+}
+
+.cc-content-row-grid {
+    display: grid;
+    grid-template-rows: 40% 60%;
+    margin: auto;
+    height: 100%;
+    width: 80%;
+    align-items: center;
+    justify-content: center;
+}
+
+.cc-canvas {
+    display: flex;
+    height: 100%;
+    aspect-ratio: 1;
+    margin: auto;
+}
+
+.cc-input-item {
+    display: grid;
+    width: 100%;
+    height: fit-content;
+    padding: 0.625rem;
+    flex-direction: row;
+    border: 1px solid var(--grey2);
+    grid-template-columns: 40% 60%;
+}
+
+.cc-input-item:first-child {
+    border-bottom: none;
+}
+
+.cc-input-item input {
+    margin: 0 0.625rem;
+}
+
+.cc-input-text {
+    border: 1px solid var(--grey);
+    text-align: right;
+}
+
+.cc-input-label {
+
+
+}
+
+.cc-input-item-small-text {
+    width: 36px;
+
+}
+
+/* ========================================================================================================================================================= */
+
+.cr-row-grid {
+    position: relative;
+    display: grid;
+    height: 100%;
+    width: 100%;
+    grid-template-rows: 90% 10%;
+
+}
+
+.cr-main-column-grid {
+    position: relative;
+    display: grid;
+    height: 100%;
+    width: 100%;
+    grid-template-columns: 80% 20%;
+}
+
+.cr-canvas {
+    position: relative;
+    display: flex;
+    height: 100%;
+    width: 100%;
+    border: 1px solid var(--grey2); 
+
+}

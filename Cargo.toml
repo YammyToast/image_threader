@@ -6,4 +6,17 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-iced = "0.9"
+base64 = "0.21.2"
+dioxus = "0.3.2"
+dioxus-desktop = "0.3.0"
+image = "0.24.6"
+regex = "1.9.1"
+tinyppm = "0.2.0"
+
+[package.metadata.bundle]
+name="ImageThreader"
+identifier="image.threader"
+version="0.0.1"
+copyright="N/A"
+category="User Tool"
+short_description="Convert images into steps required for embroidery"
